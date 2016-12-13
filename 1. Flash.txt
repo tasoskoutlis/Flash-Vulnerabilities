@@ -1,0 +1,56 @@
+Flash Bug Hunting
+
+1) Google Hacking  ---  filetype:swf site:example.com
+	DW open source apps/libs
+	Search in contents for SWF
+	Search similar open source projects for SWF
+	
+2) Search for known security/vulnerability issues
+
+3) Automated Testing using approve-it, SWFIntruder, Flashbang
+
+4) Manual Testing using JPEXS, SWF Decompiler
+
+
+ISSUES
+
+1) Insecure crossdomain.xml
+2) CVE - 2011 - 2461
+3) Flash Exploitation Database - https://web.archive.org/web/20130730223443/http:/web.appsec.ws/FlashExploitDatabase.php
+
+
+Vulnerabilities in SWF files
+
+1) XSS
+2) XSDH - Cross-site Data Hijacking
+3) SOME - Same Origin Method Execution
+4)
+
+
+Tools
+
+1) swfdump - http://www.swftools.org/swfdump.html
+2) burp suite add on ParrotNG - https://github.com/ikkisoft/ParrotNG
+3) FlashDiggity - http://www.bishopfox.com/resources/tools/google-hacking-diggity/attack-tools/#searchdiggity-v-3
+
+INPUT PARAMETERS - SOURCES
+
+1) AS3 - Search for root, loaderInfo, parameters - \.(root|loaderInfo|parameters)[^\w][^\w](root|loaderInfo|parameters)\.
+2) AS2 - Search for _root, _global, _level0 - \.(_root|_global|_level0)[^\w][^\w](_root|_global|_level0)\.
+
+OUTPUT PARAMETERS - SINKS
+
+1) Run Javascript - AS3 ExternalInterface.call, navigateToURL
+					AS2 getURL, fscommand
+						.htmlText
+						
+						
+2) Can load objects or send/receive/store data
+					
+					XMLLoader, AMFService, SWFLoader, loadVariables, loadMovie, loadMovieNum, LoadVars.load, LoadVars.send, 
+					NetStream.play, getDefinition, FScrollPane.loadScrollContent, XML.load, Sound.loadSound, URLRequest, URLLoader,
+					URLStream, LocalConnection, SharedObject
+
+3) Can run Flash functions from JavaScript - ExternalInterface.addCallback (AS3), .watch (AS2) Security.allowDomain
+
+
